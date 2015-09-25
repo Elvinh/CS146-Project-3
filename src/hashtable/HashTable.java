@@ -1,6 +1,5 @@
 package hashtable;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import hashtable.Cell;
@@ -16,7 +15,7 @@ public class HashTable<K,V> {
 		int index = -1;
 		index = hashingFunction(newCell.getkey());
 		
-		if(table[index] == null) {
+		if(table[index] == null) { //creates a new bucket linked list if index has no value
 			LinkedList<Cell<K,V>> bucket = new LinkedList<Cell<K,V>>();
 			table[index] = bucket;
 			table[index].add(newCell);
@@ -29,7 +28,7 @@ public class HashTable<K,V> {
 	V get(K key) {
 		int index = hashingFunction(key);
 		V targetValue = null;
-		for(int i = 0; i < table[index].size(); i++) {
+		for(int i = 0; i < table[index].size(); i++) { //searching linked list at index for key value
 			if(table[index].get(i).getkey() == key) {
 				targetValue = table[index].get(i).getValue();
 				break;
