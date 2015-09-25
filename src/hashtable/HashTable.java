@@ -2,6 +2,7 @@ package hashtable;
 
 import java.util.LinkedList;
 
+// comment
 public class HashTable<K,V> {
 	private static final int MAX_SIZE = 100;
 
