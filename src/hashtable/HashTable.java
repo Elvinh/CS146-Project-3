@@ -1,18 +1,28 @@
 package hashtable;
 
 import java.util.LinkedList;
-
+import hashtable.Cell;
 public class HashTable<K,V> {
 	private static final int MAX_SIZE = 100;
 
-	LinkedList<Cell<K,V>>[] table;
-	
-	int count;
+	private LinkedList<Cell<K,V>>[] table;
+	private int count;
 	
 	HashTable() {
 	}
-	void put(V value) {
+	public void put(Cell<K,V> newCell) {
+		int index = -1;
+		index = hashingFunction(newCell.getkey());
 		
+		if(table[index] == null) {
+			LinkedList<Cell<K,V>> bucket = new LinkedList<Cell<K,V>>();
+			table[index] = bucket;
+			table[index].add(newCell);
+		}
+		else {
+			table[index].add(newCell);
+		}
+		count++;
 	}
 	V get(K key) {
 		
