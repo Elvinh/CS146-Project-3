@@ -2,12 +2,8 @@ package hashtable;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-<<<<<<< HEAD
 
-// comment
-=======
 import hashtable.Cell;
->>>>>>> origin/master
 public class HashTable<K,V> {
 	private static final int MAX_SIZE = 100;
 
