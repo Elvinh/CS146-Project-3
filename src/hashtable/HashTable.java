@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import hashtable.Cell;
 public class HashTable<K,V> {
 	private static final int MAX_SIZE = 100;
-//test
+//testsd
 	private LinkedList<Cell<K,V>>[] table;
 	private int count;
 	
