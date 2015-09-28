@@ -11,9 +11,9 @@ public class WordCount {
 
 	private static int totalCount = 0;
 	
-    private static void countWords(String file) {
-        DataCounter<String> counter = new tBST<String>();
-        //DataCounter<String> counter = new BinarySearchTree<String>();
+    private static DataCount<String>[] countWords(DataCounter<String> dataStruct, String file) {
+        DataCounter<String> counter = dataStruct;
+
         
         try {
             FileWordReader reader = new FileWordReader(file);
@@ -36,17 +36,31 @@ public class WordCount {
         	totalCount += c.count;
         }
         
-        // only print relevant words
-        System.out.println("Only printing words with frequency < 1% or > 0.01%");
+        return counts;
+    }
+    
+    // only print relevant words
+    private static void printFrequency(DataCount<String>[] counts) {
+    	
+    	System.out.println("Only printing words with frequency < 1% or > 0.01%");
         for (DataCount<String> c : counts)
         {
         	if ((double) c.count/totalCount <= 0.01 && (double) c.count/totalCount >= 0.0001)
         	{
-        		System.out.println(c.count/totalCount + " \t" + c.count + " \t" + c.data);
+        		System.out.println((double) c.count/totalCount + " \t" + c.count + " \t" + c.data);
         	}
         }
     }
+    private static void printUniqueWords(DataCount<String>[] counts) {
 
+    	for (DataCount<String> c : counts)
+        {
+        	if(c.count >= 1) {
+        		System.out.println(c.count + " \t" + c.data);
+        	}
+        }
+    	System.out.println("Unique words: " + counts.length);
+    }
     /**
      * TODO Replace this comment with your own.
      * 
@@ -81,14 +95,46 @@ public class WordCount {
     }
 
     public static void main(String[] args) {
-    	// comment below 4 lines to test within Eclipse
-    	/*
-        if (args.length != 1) {
-            System.err.println("Usage: filename of document to analyze");
+  
+        if (args.length != 3) {
+            System.err.println(" Incorrect number of arguments");
+            System.err.println(" Usage: ");
+            System.err.println("\tjava WordCount  [ -b | -a | -h ] [ -frequency | -num_unique ] <filename>");
             System.exit(1);
         }
-        */
-        countWords("C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/hamlet.txt");
+       
+        DataCounter<String> dataStruct = null;
+        DataCount<String>[] wordCounts = null;
+    
+        if (args[0].compareTo("-b")==0) {
+        	dataStruct = new BinarySearchTree<String>();
+        	wordCounts = countWords(dataStruct, args[2]);
+        }
+        else if (args[0].compareTo("-a")==0) {
+        	dataStruct = new BinarySearchTree<String>(); //replace with AVLTree once completed
+        	wordCounts = countWords(dataStruct, args[2]);
+        }
+        else if (args[0].compareTo("-h")==0) {
+        	dataStruct = new HashTable();
+        	wordCounts = countWords(dataStruct, args[2]);
+        }
+        else {
+            System.err.println("\tSaw "+args[0]+" instead of [ -b | -a | -h ] as first argument");
+            System.exit(1);
+        }
+        
+        if (args[1].compareTo("-frequency")==0) {
+        	printFrequency(wordCounts);
+        }
+        else if (args[1].compareTo("-num_unique")==0) {
+        	printUniqueWords(wordCounts);
+        }
+        else {
+            System.err.println("\tSaw "+args[0]+" instead of [ -frequency | -num_unique ] as second argument");
+            System.exit(1);
+        }
+        
+        
         System.out.println("Total words are: " + totalCount);
     }
 }
