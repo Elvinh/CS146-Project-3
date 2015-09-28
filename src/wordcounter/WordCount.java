@@ -11,10 +11,9 @@ public class WordCount {
 
 	private static int totalCount = 0;
 	
-    static DataCount<String>[] countWords(DataCounter<String> dataStruct, String file) {
+    protected static DataCount<String>[] countWords(DataCounter<String> dataStruct, String file) {
         DataCounter<String> counter = dataStruct;
 
-        
         try {
             FileWordReader reader = new FileWordReader(file);
             String word = reader.nextWord();
@@ -95,7 +94,10 @@ public class WordCount {
     }
 
     public static void main(String[] args) {
-  
+        /* Elton: Thien if you want to test within eclipse go to Run->Run configurations...>Program arguments
+         * and type the arguments into the box. 
+         */
+    	
         if (args.length != 3) {
             System.err.println(" Incorrect number of arguments");
             System.err.println(" Usage: ");

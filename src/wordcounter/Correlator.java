@@ -69,16 +69,16 @@ public class Correlator {
         }
         
         correlator(wordCounts1, wordCounts2);
+        
         System.out.println("Total words in document 1: " + totalCount1);
         System.out.println("Total words in document 2: " + totalCount2);
+       
         /* Elton: Thien if you want to test within eclipse go to Run->Run configurations...>Program arguments
-         * and type the arguements into the box. 
+         * and type the arguments into the box. 
          */
         
         //correlator("C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/hamlet.txt", 
         		//"C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/the-new-atlantis.txt");
-       // correlator("C:/Users/Elton/git/CS146-Project-3/src/txtFiles/hamlet.txt", 
-        		//"C:/Users/Elton/git/CS146-Project-3/src/txtFiles/the-new-atlantis.txt");
-        //System.out.println("Total words are: " + totalCount);
+        
     }
 }
