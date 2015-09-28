@@ -14,7 +14,7 @@ public class Correlator {
     private static void correlator(String file1, String file2) {
         //DataCounter<String> counter1 = new tBST<String>();
         //DataCounter<String> counter2 = new tBST<String>();
-        DataCounter<String> counter1 = new HashTable();
+    	DataCounter<String> counter1 = new HashTable();
         DataCounter<String> counter2 = new HashTable();
         
         // 1st document
