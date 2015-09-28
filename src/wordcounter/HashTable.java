@@ -1,8 +1,6 @@
 package wordcounter;
 
-import java.lang.reflect.Array;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 /**
  * TODO Replace this comment with your own.
@@ -13,7 +11,7 @@ import java.util.ListIterator;
  * generic.  You need the String contents to write your hashcode code.
  */
 public class HashTable implements DataCounter<String> {
-	static final int INIT_TABLE_SIZE = 97;
+	static final int INIT_TABLE_SIZE = 40000;
 	static final double INIT_MAX_LAMBDA = 1.5;
 	
 	private LinkedList<Cell>[] table;
@@ -26,6 +24,7 @@ public class HashTable implements DataCounter<String> {
 	}
 	
 	public HashTable(int size) {
+		count = 0;
 		if (size < INIT_TABLE_SIZE)
 			tableSize = INIT_TABLE_SIZE;
 		else
@@ -45,24 +44,26 @@ public class HashTable implements DataCounter<String> {
 	}
 	
 	/** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
 	public DataCount<String>[] getCounts() {
-    	Class<String> type = null;
-		DataCount<String>[] counts =  (DataCount<String>[]) Array.newInstance(type, count);;
-    	
-    	for(int i = 0;i < table.length;i++) {
-    		for(int j = 0;j < table[i].size();i++) {
-    			counts[counts.length-1]= new DataCount<String>(table[i].get(j).getValue(), table[i].get(j).getCount());
+		@SuppressWarnings("unchecked")
+		DataCount<String>[] counter =  new DataCount[count];
+    	int k = 0;
+    	for(int i = 0; i < table.length; i++) {
+    		if(!table[i].isEmpty()) {
+    			for(int j = 0;j < table[i].size();j++) {
+    				counter[k]= new DataCount<String>(table[i].get(j).getValue(), table[i].get(j).getCount());
+    				k++;
+    			}
     		}
     	}
-    	
-        return counts;
+
+        return counter;
     }
 
     /** {@inheritDoc} */
     public int getSize() {
         // TODO Auto-generated method stub
-        return count;
+    	return count;
     }
 
     /** {@inheritDoc} */
@@ -91,9 +92,8 @@ public class HashTable implements DataCounter<String> {
     	int index = hashingFunction(key);
 		
     	for(int i = 0; i < table[index].size(); i++) {
-			if(table[index].get(i).getkey() == key) {
+			if(table[index].get(i).getkey().equals(key)) {
 				found = true;
-				break;
 			}
 		}
 			
@@ -104,7 +104,7 @@ public class HashTable implements DataCounter<String> {
 		int index = hashingFunction(key);
 		Cell targetValue = null;
 		for(int i = 0; i < table[index].size(); i++) { //searching linked list at index for key value
-			if(table[index].get(i).getkey() == key) {
+			if(table[index].get(i).getkey().equals(key)) {
 				targetValue = table[index].get(i);
 				break;
 			}
@@ -112,34 +112,7 @@ public class HashTable implements DataCounter<String> {
 		return targetValue;
 	}
 	
-	public boolean setMaxLambda( double lam )
-	{
-		if ( lam < .1 || lam > 100.)
-			return false;
-		maxLambda = lam;
-		return true;
-	}
-
-	private void reSize()
-	{
-		// save old list and size then can allocate freely
-		LinkedList<Cell>[] oldTable = table;
-		int oldTableSize = tableSize;
-		ListIterator<Cell> iter;
-		
-		tableSize = nextPrime(2*oldTableSize);
-		
-		// allocate a larger, empty array
-		intializeTable();
-		
-		// use the insert() algorithm to re-enter old data
-		count = 0;
-		for (int i = 0; i < oldTableSize; i++ )
-			for ( iter = oldTable[i].listIterator(); iter.hasNext() ; )
-				incCount( iter.next().getValue() );
-	}
-
-	private int hashingFunction(String key)
+    private int hashingFunction(String key)
 	{
 		int index;
 		
@@ -160,6 +133,37 @@ public class HashTable implements DataCounter<String> {
 			index = 37 * index + val[i];
 		
 		return index;
+	}
+
+	private void reSize()
+	{
+		// save old list and size then can allocate freely
+		LinkedList<Cell>[] oldTable = table;
+		int oldTableSize = tableSize;
+		
+		tableSize = nextPrime(2*oldTableSize);
+		
+		// allocate a larger, empty array
+		intializeTable();
+		
+		// use the reinsert() algorithm to re-enter old data
+		for (int i = 0; i < oldTableSize; i++ )
+			for ( int j = 0; j < oldTable[i].size(); j++)
+				reInsert( oldTable[i].get(j) );
+	}
+
+    //helper function to re-insert data into new table
+    private void reInsert(Cell cell) {
+		int index = hashingFunction(cell.getkey());
+		table[index].add(cell);
+    }
+    
+	public boolean setMaxLambda( double lam )
+	{
+		if ( lam < .1 || lam > 100.)
+			return false;
+		maxLambda = lam;
+		return true;
 	}
 
 	private static int nextPrime( int n )

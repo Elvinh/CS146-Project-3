@@ -12,9 +12,11 @@ public class Correlator {
 	private static double errorSum = 0;
 	
     private static void correlator(String file1, String file2) {
-        DataCounter<String> counter1 = new tBST<String>();
-        DataCounter<String> counter2 = new tBST<String>();
-
+        //DataCounter<String> counter1 = new tBST<String>();
+        //DataCounter<String> counter2 = new tBST<String>();
+        DataCounter<String> counter1 = new HashTable();
+        DataCounter<String> counter2 = new HashTable();
+        
         // 1st document
         
         try {
@@ -35,16 +37,19 @@ public class Correlator {
         // sum up the total words
         for (DataCount<String> c : counts1)
         {
-        	totalCount1 += c.count;
+        	if(c != null)
+        		totalCount1 += c.count;
         }
         
         // only print relevant words
         System.out.println("File1 printing words with frequency < 1% or > 0.01%");
         for (DataCount<String> c : counts1)
         {
-        	if ((double) c.count/totalCount1 <= 0.01 && (double) c.count/totalCount1 >= 0.0001)
-        	{
-        		System.out.println((double) c.count/totalCount1 + " \t" + c.count + " \t" + c.data);
+        	if(c != null) {
+	        	if ( (double) c.count/totalCount1 <= 0.01 && (double) c.count/totalCount1 >= 0.0001 )
+	        	{
+	        		System.out.println(((double) c.count/totalCount1)  * 100 + " \t" + c.count + " \t" + c.data);
+	        	}
         	}
         }
         
@@ -130,16 +135,18 @@ public class Correlator {
 
     public static void main(String[] args) {
     	// comment below 4 lines to test within Eclipse
-    	/*
-        if (args.length != 3) {
+        /*(if (args.length != 3) {
             System.err.println("Usage: filename of document to analyze");
             System.exit(1);
-        }
+        }*/
         
-        
-        */
-        correlator("C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/hamlet.txt", 
-        		"C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/the-new-atlantis.txt");
+        /* Elton: Thien if you want to test within eclipse go to Run->Run configurations...>Program arguments
+         * and type file names into the box. 
+         */
+        //correlator("C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/hamlet.txt", 
+        		//"C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/the-new-atlantis.txt");
+        correlator("C:/Users/Elton/git/CS146-Project-3/src/txtFiles/hamlet.txt", 
+        		"C:/Users/Elton/git/CS146-Project-3/src/txtFiles/the-new-atlantis.txt");
         //System.out.println("Total words are: " + totalCount);
     }
 }
