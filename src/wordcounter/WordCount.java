@@ -11,7 +11,7 @@ public class WordCount {
 
 	private static int totalCount = 0;
 	
-    private static DataCount<String>[] countWords(DataCounter<String> dataStruct, String file) {
+    static DataCount<String>[] countWords(DataCounter<String> dataStruct, String file) {
         DataCounter<String> counter = dataStruct;
 
         
