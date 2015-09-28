@@ -6,9 +6,12 @@ public class Cell {
 	private int count;
 	
 	Cell(String value) {
+		this.count = 1;
 		this.value = value;
+		this.key = value;
 	}
 	Cell(String value, String key) {
+		this.count = 1;
 		this.value = value;
 		this.key = key;
 	}

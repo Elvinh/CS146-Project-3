@@ -1,8 +1,8 @@
-package thienTree;
+package wordcounter;
 
 import java.util.NoSuchElementException;
 
-public class tBST< E extends Comparable< ? super E > > implements Cloneable
+public class tBST< E extends Comparable< ? super E > > implements DataCounter<E>
 {
 	protected int tSize;
 	protected t_sTreeNode<E> tRoot;
@@ -58,13 +58,6 @@ public class tBST< E extends Comparable< ? super E > > implements Cloneable
 		return resultNode.data;
 	}
 	public boolean contains(E x) { return find(tRoot, x) != null; }
-	
-	// in-order traversals (good for BST) as result will be in sorted order
-	public < F extends Traverser<? super E > >
-	void traverse(F func)
-	{
-		traverse(func, tRoot);
-	}
 	
 	// clone method
 	public Object clone() throws CloneNotSupportedException
@@ -172,17 +165,14 @@ public class tBST< E extends Comparable< ? super E > > implements Cloneable
 		return root;	// found
 	}
 	
-	// 
-	protected < F extends Traverser< ? super E > >
-	void traverse( F func, t_sTreeNode treeNode)
-	{
-		if (treeNode == null)	
-			return;
-		
-		traverse(func, treeNode.lftChild);
-		func.visit((E) treeNode.data);
-		traverse(func, treeNode.rtChild);
-	}
+	protected int traverse(t_sTreeNode<E> root, DataCount<E>[] counts, int idx) {
+        if(root != null) {
+            idx = traverse(root.lftChild, counts, idx);
+            counts[idx] = new DataCount<E>( root.data, root.count);
+            idx = traverse(root.rtChild, counts, idx + 1);
+        }
+        return idx;
+    }
 	
 	// clone all the nodes
 	protected t_sTreeNode<E> cloneSubtree(t_sTreeNode<E> root)
@@ -197,4 +187,57 @@ public class tBST< E extends Comparable< ? super E > > implements Cloneable
 		);
 		return newNode;
 	}
+
+	@Override
+    public void incCount(E data) {
+        if (tRoot == null) {
+            tRoot = new t_sTreeNode<E>(data, null, null);
+            insert(data);
+        } else {
+            // traverse the tree
+            t_sTreeNode<E> currentNode = tRoot;
+            while (true) {
+
+                // compare the data to be inserted with the data at the current
+                // node
+                int cmp = data.compareTo((E) currentNode.data);
+
+                if (cmp == 0) {
+                    // current node is a match
+                    currentNode.count++;
+                    return;
+                } else if (cmp < 0) {
+                    // new data goes to the left of the current node
+                    if (currentNode.lftChild == null) {
+                        currentNode.lftChild = new t_sTreeNode<E>(data, null, null);
+                        return;
+                    }
+                    currentNode = currentNode.lftChild;
+                } else {
+                    // new data goes to the right of the current node
+                    if (currentNode.rtChild == null) {
+                        currentNode.rtChild = new t_sTreeNode<E>(data, null, null);
+                        return;
+                    }
+                    currentNode = currentNode.rtChild;
+                }
+            }
+        }
+    }
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return tSize;
+	}
+
+	@Override
+    public DataCount<E>[] getCounts() {
+    	@SuppressWarnings("unchecked")
+        DataCount<E>[] counts = new DataCount[tSize];
+        if (tRoot != null)
+            traverse(tRoot, counts, 0);
+        return counts;
+    }
+
 }

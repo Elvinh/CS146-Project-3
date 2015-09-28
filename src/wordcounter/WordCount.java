@@ -2,15 +2,19 @@ package wordcounter;
 
 import java.io.IOException;
 
+
 /**
  * An executable that counts the words in a files and prints out the counts in
  * descending order. You will need to modify this file.
  */
 public class WordCount {
 
+	private static int totalCount = 0;
+	
     private static void countWords(String file) {
-        DataCounter<String> counter = new BinarySearchTree<String>();
-
+        DataCounter<String> counter = new tBST<String>();
+        //DataCounter<String> counter = new BinarySearchTree<String>();
+        
         try {
             FileWordReader reader = new FileWordReader(file);
             String word = reader.nextWord();
@@ -25,8 +29,22 @@ public class WordCount {
 
         DataCount<String>[] counts = counter.getCounts();
         sortByDescendingCount(counts);
+        
+        // sum up the total words
         for (DataCount<String> c : counts)
-            System.out.println(c.count + " \t" + c.data);
+        {
+        	totalCount += c.count;
+        }
+        
+        // only print relevant words
+        System.out.println("Only printing words with frequency < 1% or > 0.01%");
+        for (DataCount<String> c : counts)
+        {
+        	if ((double) c.count/totalCount <= 0.01 && (double) c.count/totalCount >= 0.0001)
+        	{
+        		System.out.println(c.count/totalCount + " \t" + c.count + " \t" + c.data);
+        	}
+        }
     }
 
     /**
@@ -63,10 +81,14 @@ public class WordCount {
     }
 
     public static void main(String[] args) {
+    	// comment below 4 lines to test within Eclipse
+    	/*
         if (args.length != 1) {
             System.err.println("Usage: filename of document to analyze");
             System.exit(1);
         }
-        countWords(args[0]);
+        */
+        countWords("C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/hamlet.txt");
+        System.out.println("Total words are: " + totalCount);
     }
 }

@@ -1,4 +1,4 @@
-package testingT;
+package wordcounter;
 
 public interface Traverser<E> 
 {

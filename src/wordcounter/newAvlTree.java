@@ -1,6 +1,4 @@
-package testingT;
-
-import testingT.BinarySearchTree.BSTNode;
+package wordcounter;
 
 public class newAvlTree<E extends Comparable< ? super E > >
 extends BinarySearchTree<E>

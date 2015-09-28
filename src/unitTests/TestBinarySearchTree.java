@@ -1,4 +1,6 @@
-package wordcounter;
+package unitTests;
+
+import wordcounter.BinarySearchTree;
 
 /**
  * An example of how to test your binary search tree. You should use this as

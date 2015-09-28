@@ -1,4 +1,4 @@
-package testingT;
+package wordcounter;
 
 // set up avl node from search tree node
 public class tAvlNode<E extends Comparable< ? super E > >

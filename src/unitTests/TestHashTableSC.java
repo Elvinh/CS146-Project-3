@@ -1,4 +1,6 @@
-package testingT;
+package unitTests;
+
+import oldStuffToBeDeleted.HashTableSC;
 
 //Example of an Employee class
 class Employee

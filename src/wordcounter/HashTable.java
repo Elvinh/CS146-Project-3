@@ -1,6 +1,8 @@
 package wordcounter;
 
+import java.lang.reflect.Array;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  * TODO Replace this comment with your own.
@@ -11,12 +13,42 @@ import java.util.LinkedList;
  * generic.  You need the String contents to write your hashcode code.
  */
 public class HashTable implements DataCounter<String> {
+	static final int INIT_TABLE_SIZE = 97;
+	static final double INIT_MAX_LAMBDA = 1.5;
+	
 	private LinkedList<Cell>[] table;
 	private int count;
-   
+	private int tableSize;
+	private double maxLambda;
+	
+	public HashTable() {
+	   this(INIT_TABLE_SIZE);
+	}
+	
+	public HashTable(int size) {
+		if (size < INIT_TABLE_SIZE)
+			tableSize = INIT_TABLE_SIZE;
+		else
+			tableSize = nextPrime(size);
+		
+		intializeTable();
+		maxLambda = INIT_MAX_LAMBDA;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void intializeTable() {
+		table = new LinkedList[tableSize];
+		for(int i = 0;i<tableSize;i++) {
+			if(table[i] == null)
+				table[i] = new LinkedList<Cell>();
+		}
+	}
+	
 	/** {@inheritDoc} */
-    public DataCount<String>[] getCounts() {
-    	DataCount<String>[] counts = null;
+    @SuppressWarnings("unchecked")
+	public DataCount<String>[] getCounts() {
+    	Class<String> type = null;
+		DataCount<String>[] counts =  (DataCount<String>[]) Array.newInstance(type, count);;
     	
     	for(int i = 0;i < table.length;i++) {
     		for(int j = 0;j < table[i].size();i++) {
@@ -45,33 +77,30 @@ public class HashTable implements DataCounter<String> {
 		}
 		else {
 			index = hashingFunction(newCell.getkey());
-			
-			if(table[index] == null) { //creates a new bucket linked list if index has no value
-				LinkedList<Cell> bucket = new LinkedList<Cell>();
-				table[index] = bucket;
-				table[index].add(newCell);
-			}
-			else {
-				table[index].add(newCell);
-			}
+			table[index].add(newCell);
 			count++;
 		}
+		
+		if ( count > maxLambda * tableSize )
+			reSize();
 		
     }
 
     public Boolean contains(String key) {
-    	boolean found = false;
-		int index = hashingFunction(key);
+		Boolean found = false;
+    	int index = hashingFunction(key);
 		
-		for(int i = 0; i < table[index].size(); i++) { //searching linked list at index for key value
+    	for(int i = 0; i < table[index].size(); i++) {
 			if(table[index].get(i).getkey() == key) {
 				found = true;
 				break;
 			}
 		}
+			
 		return found;
     }
-	Cell get(String key) {
+	
+    public Cell get(String key) {
 		int index = hashingFunction(key);
 		Cell targetValue = null;
 		for(int i = 0; i < table[index].size(); i++) { //searching linked list at index for key value
@@ -82,8 +111,87 @@ public class HashTable implements DataCounter<String> {
 		}
 		return targetValue;
 	}
-	int hashingFunction(String key) {
-		int index = -1;
+	
+	public boolean setMaxLambda( double lam )
+	{
+		if ( lam < .1 || lam > 100.)
+			return false;
+		maxLambda = lam;
+		return true;
+	}
+
+	private void reSize()
+	{
+		// save old list and size then can allocate freely
+		LinkedList<Cell>[] oldTable = table;
+		int oldTableSize = tableSize;
+		ListIterator<Cell> iter;
+		
+		tableSize = nextPrime(2*oldTableSize);
+		
+		// allocate a larger, empty array
+		intializeTable();
+		
+		// use the insert() algorithm to re-enter old data
+		count = 0;
+		for (int i = 0; i < oldTableSize; i++ )
+			for ( iter = oldTable[i].listIterator(); iter.hasNext() ; )
+				incCount( iter.next().getValue() );
+	}
+
+	private int hashingFunction(String key)
+	{
+		int index;
+		
+		index = _hashingFunction(key) % tableSize;
+		if (index < 0 )
+			index += tableSize;
+		
 		return index;
 	}
+	
+	// helper method to calculate hash
+	private int _hashingFunction( String key )
+	{
+		int index = 0;
+		char [] val = key.toCharArray();
+		
+		for ( int i = 0; i < key.length(); i++ )
+			index = 37 * index + val[i];
+		
+		return index;
+	}
+
+	private static int nextPrime( int n )
+	{
+		int k, candidate, loopLim;
+		
+		// loop doesn't work for 2 or 3
+		if ( n <= 2 )
+			return 2;
+		else if ( n == 3 )
+			return 3;
+		
+		for ( candidate = (n%2 == 0)? n+1 : n ; true ; candidate += 2)
+		{
+			// all primes > 3 are of the form 6k +/- 1
+			loopLim = (int)( (Math.sqrt((double)candidate) + 1)/6);
+			
+			// we know it is odd. check for divisibility by 3
+			if ( candidate % 3 == 0)
+				continue;
+			
+			// now we can check for divisibility by 6k +/1 1 up to sqrt
+			for ( k = 1; k <= loopLim; k++ )
+			{
+				if (candidate % (6*k - 1) == 0)
+					break;
+				if (candidate % (6*k + 1) == 0)
+					break;
+			}
+			if ( k > loopLim)
+				return candidate;
+		}
+	}
+
 }

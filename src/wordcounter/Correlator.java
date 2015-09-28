@@ -1,4 +1,4 @@
-package testingT;
+package wordcounter;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package thienTree;
+package wordcounter;
 
 public class tAvlTree<E extends Comparable< ? super E > >
 extends tBST<E>

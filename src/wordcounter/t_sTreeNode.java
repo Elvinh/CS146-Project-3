@@ -1,4 +1,4 @@
-package thienTree;
+package wordcounter;
 
 public class t_sTreeNode<E extends Comparable< ? super E > > implements Comparable
 {
@@ -6,6 +6,7 @@ public class t_sTreeNode<E extends Comparable< ? super E > > implements Comparab
 	public t_sTreeNode<E> lftChild, rtChild;
 	public E data;
 	public t_sTreeNode<E> myRoot;
+	public int count;
 	
 	// default constructor
 	public t_sTreeNode( E d, t_sTreeNode<E> lft, t_sTreeNode<E> rt)
