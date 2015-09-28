@@ -16,8 +16,15 @@ public class HashTable implements DataCounter<String> {
    
 	/** {@inheritDoc} */
     public DataCount<String>[] getCounts() {
-        // TODO Auto-generated method stub
-        return null;
+    	DataCount<String>[] counts = null;
+    	
+    	for(int i = 0;i < table.length;i++) {
+    		for(int j = 0;j < table[i].size();i++) {
+    			counts[counts.length-1]= new DataCount<String>(table[i].get(j).getValue(), table[i].get(j).getCount());
+    		}
+    	}
+    	
+        return counts;
     }
 
     /** {@inheritDoc} */
@@ -31,28 +38,45 @@ public class HashTable implements DataCounter<String> {
         // TODO Auto-generated method stub
     	Cell newCell = new Cell(data);
 		int index = -1;
-		index = hashingFunction(newCell.getkey());
-		
-		if(table[index] == null) { //creates a new bucket linked list if index has no value
-			LinkedList<Cell> bucket = new LinkedList<Cell>();
-			table[index] = bucket;
-			table[index].add(newCell);
+
+		if(contains(newCell.getkey())) {
+			newCell = get(newCell.getkey());
+			newCell.incCount();
 		}
 		else {
-			table[index].add(newCell);
+			index = hashingFunction(newCell.getkey());
+			
+			if(table[index] == null) { //creates a new bucket linked list if index has no value
+				LinkedList<Cell> bucket = new LinkedList<Cell>();
+				table[index] = bucket;
+				table[index].add(newCell);
+			}
+			else {
+				table[index].add(newCell);
+			}
+			count++;
 		}
-		count++;
+		
     }
 
-    public Boolean contains(String data) {
-		return null;
-    }
-	String get(String key) {
+    public Boolean contains(String key) {
+    	boolean found = false;
 		int index = hashingFunction(key);
-		String targetValue = null;
+		
 		for(int i = 0; i < table[index].size(); i++) { //searching linked list at index for key value
 			if(table[index].get(i).getkey() == key) {
-				targetValue = table[index].get(i).getValue();
+				found = true;
+				break;
+			}
+		}
+		return found;
+    }
+	Cell get(String key) {
+		int index = hashingFunction(key);
+		Cell targetValue = null;
+		for(int i = 0; i < table[index].size(); i++) { //searching linked list at index for key value
+			if(table[index].get(i).getkey() == key) {
+				targetValue = table[index].get(i);
 				break;
 			}
 		}
