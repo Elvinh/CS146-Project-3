@@ -1,7 +1,5 @@
 package wordcounter;
 
-import java.io.IOException;
-
 /**
  * An executable that counts the words in a files and prints out the counts in
  * descending order. You will need to modify this file.

@@ -25,11 +25,7 @@ public class HashTable implements DataCounter<String> {
 			this.value = value;
 			this.key = value;
 		}
-		public Cell(String value, String key) {
-			this.count = 1;
-			this.value = value;
-			this.key = key;
-		}
+
 		public String getValue() {
 			return this.value;
 		}
