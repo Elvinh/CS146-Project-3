@@ -1,4 +1,4 @@
-package rawProjectFiles;
+package wordcounter;
 
 import java.io.IOException;
 

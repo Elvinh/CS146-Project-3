@@ -1,4 +1,4 @@
-package rawProjectFiles;
+package wordcounter;
 
 /**
  * An example of how to test your binary search tree. You should use this as

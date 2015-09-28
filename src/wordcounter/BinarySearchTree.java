@@ -1,4 +1,4 @@
-package rawProjectFiles;
+package wordcounter;
 
 /**
  * BSTCounter implements the DataCounter interface using a binary search tree to
