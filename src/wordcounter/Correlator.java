@@ -37,20 +37,17 @@ public class Correlator {
         // sum up the total words
         for (DataCount<String> c : counts1)
         {
-        	if(c != null)
-        		totalCount1 += c.count;
+        	totalCount1 += c.count;
         }
         
         // only print relevant words
         System.out.println("File1 printing words with frequency < 1% or > 0.01%");
         for (DataCount<String> c : counts1)
         {
-        	if(c != null) {
-	        	if ( (double) c.count/totalCount1 <= 0.01 && (double) c.count/totalCount1 >= 0.0001 )
-	        	{
-	        		System.out.println(((double) c.count/totalCount1)  * 100 + " \t" + c.count + " \t" + c.data);
-	        	}
-        	}
+	        if ( (double) c.count/totalCount1 <= 0.01 && (double) c.count/totalCount1 >= 0.0001 )
+	        {
+	        	System.out.println(((double) c.count/totalCount1)  * 100 + " \t" + c.count + " \t" + c.data);
+	        }
         }
         
         // 2nd document

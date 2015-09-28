@@ -11,7 +11,7 @@ import java.util.LinkedList;
  * generic.  You need the String contents to write your hashcode code.
  */
 public class HashTable implements DataCounter<String> {
-	static final int INIT_TABLE_SIZE = 40000;
+	static final int INIT_TABLE_SIZE = 97;
 	static final double INIT_MAX_LAMBDA = 1.5;
 	
 	private LinkedList<Cell>[] table;
