@@ -1,4 +1,4 @@
-package wordcounter;
+package oldStuff;
 
 public interface Traverser<E> 
 {

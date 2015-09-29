@@ -1,6 +1,9 @@
-package wordcounter;
+package oldStuff;
 
 import java.util.NoSuchElementException;
+
+import wordcounter.DataCount;
+import wordcounter.DataCounter;
 
 public class tBST< E extends Comparable< ? super E > > implements DataCounter<E>
 {

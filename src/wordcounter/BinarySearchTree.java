@@ -54,6 +54,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
          *
          * @param data data element to be stored at this node.
          */
+        
         public BSTNode(E data) {
             this.data = data;
             count = 1;
@@ -67,6 +68,37 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
             left = right = null;
             size++;
         }
+		public BSTNode getLeft() {
+			return left;
+		}
+		public void setLeft(BSTNode left) {
+			this.left = left;
+		}
+		public BSTNode getRight() {
+			return right;
+		}
+		public void setRight(BSTNode right) {
+			this.right = right;
+		}
+		public E getData() {
+			return data;
+		}
+		public void setData(E data) {
+			this.data = data;
+		}
+		public int getCount() {
+			return count;
+		}
+		public void setCount(int count) {
+			this.count = count;
+		}
+		public int getHeight() {
+			return height;
+		}
+		public void setHeight(int height) {
+			this.height = height;
+		}
+        
     }
 
     /**
@@ -76,7 +108,10 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
         overallRoot = null;
         size = 0;
     }
-
+    public BSTNode getRoot() {
+    	return overallRoot;
+    }
+    
     /** {@inheritDoc} */
     public void incCount(E data) {
         if (overallRoot == null) {
@@ -175,4 +210,30 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
 
         return out;
     }
+    
+	public boolean contains(E item, BSTNode rootNode) {
+		if(rootNode == null)
+			return false;
+		else if(item.compareTo(rootNode.data) == 0)
+			return true;
+		else if(item.compareTo(rootNode.data) < 0)
+			return contains(item, rootNode.left);
+		else 
+			return contains(item, rootNode.right);
+	}
+	public int getHeight() {
+		return heightOfTree(overallRoot);
+	}	
+	
+	private int heightOfTree(BSTNode root) 
+	{
+	    if(root == null)
+	    	return -1;
+	    else
+	    	return max(heightOfTree(root.getLeft()), heightOfTree(root.getRight())) + 1;
+	        
+	}
+	private int max(int i1, int i2) {
+		return (i1 > i2) ? i1 : i2;
+	}
 }

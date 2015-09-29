@@ -1,4 +1,4 @@
-package wordcounter;
+package oldStuff;
 
 public class t_sTreeNode<E extends Comparable< ? super E > > implements Comparable
 {

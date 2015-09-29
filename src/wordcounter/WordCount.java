@@ -113,7 +113,7 @@ public class WordCount {
         	wordCounts = countWords(dataStruct, args[2]);
         }
         else if (args[0].compareTo("-a")==0) {
-        	dataStruct = new newAvlTree<String>(); //replace with AVLTree once completed
+        	dataStruct = new AvlTree<String>(); //replace with AVLTree once completed
         	wordCounts = countWords(dataStruct, args[2]);
         }
         else if (args[0].compareTo("-h")==0) {

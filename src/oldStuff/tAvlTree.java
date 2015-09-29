@@ -1,4 +1,4 @@
-package wordcounter;
+package oldStuff;
 
 public class tAvlTree<E extends Comparable< ? super E > >
 extends tBST<E>
