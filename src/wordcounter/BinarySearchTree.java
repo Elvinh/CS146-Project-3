@@ -47,6 +47,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
          */
         public int count;
 
+        public int height;
         /**
          * Create a new data node. Also takes care of incrementing the tree
          * size.
@@ -56,6 +57,13 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
         public BSTNode(E data) {
             this.data = data;
             count = 1;
+            left = right = null;
+            size++;
+        }
+        public BSTNode(E data, int height) {
+            this.data = data;
+            count = 1;
+            this.height = height;
             left = right = null;
             size++;
         }

@@ -3,8 +3,6 @@ package wordcounter;
 public class newAvlTree<E extends Comparable< ? super E > >
 extends BinarySearchTree<E>
 {
-	protected AvlNode overallRoot;
-	
 	// public methods of AVL Tree	
 	public newAvlTree() 
 	{
@@ -65,18 +63,18 @@ extends BinarySearchTree<E>
     	}
     }
     
-	public int heightOf(AvlNode a)
+	public int heightOf(BSTNode a)
 	{
-		return a == null? -1 : a.getHeight();
+		return a == null? -1 : a.height;
 	}
     
     // need to override incCount to include the "check and adjust balance" algorithm
     public void incCount(E data) {
         if (overallRoot == null) {
-            overallRoot = new AvlNode(data, 0);
+            overallRoot = new BSTNode(data, 0);
         } else {
             // traverse the tree
-            AvlNode currentNode = overallRoot;
+            BSTNode currentNode = overallRoot;
             while (true) {
                 // compare the data to be inserted with the data at the current node
                 int cmp = data.compareTo(currentNode.data);
@@ -107,7 +105,7 @@ extends BinarySearchTree<E>
     }
     
     // balancing algorithm taken from CS 146 slides
-    protected AvlNode selfBalance( AvlNode node )
+    protected BSTNode selfBalance( BSTNode node )
     {
     	if (heightOf(node.left) - heightOf(node.right) > 1)
     	{
@@ -128,36 +126,36 @@ extends BinarySearchTree<E>
     }
     
  // rotation algorithms implemented from Project 2 (Thien)
- 	protected AvlNode rotateWithLeftChild(
- 		AvlNode k2 )
+ 	protected BSTNode rotateWithLeftChild(
+ 			BSTNode k2 )
  	{
- 		AvlNode k1 = k2.left;
+ 		BSTNode k1 = k2.left;
  		k2.left = k1.right;
  		k1.right = k2;
- 		k2.setHeight( Math.max( heightOf(k2.left), heightOf(k2.right) ) + 1);
- 		k1.setHeight( Math.max( heightOf(k1.left), k2.getHeight() ) + 1);
+ 		k2.height = ( Math.max( heightOf(k2.left), heightOf(k2.right) ) + 1);
+ 		k1.height = ( Math.max( heightOf(k1.left), k2.height ) + 1);
  		
  		//System.out.println("Single left rotation: " + k2.data);
  		
  		return k1;
  	}
  	
- 	protected AvlNode rotateWithRightChild(
- 			AvlNode k2 )
+ 	protected BSTNode rotateWithRightChild(
+ 			BSTNode k2 )
  	{
- 		AvlNode k1 = k2.right;
+ 		BSTNode k1 = k2.right;
  		k2.right = k1.left;
  		k1.left = k2;
- 		k2.setHeight( Math.max( heightOf(k2.left), heightOf(k2.right) ) + 1);
- 		k1.setHeight( Math.max( heightOf(k1.right), k2.getHeight() ) + 1);
+ 		k2.height =  Math.max( heightOf(k2.left), heightOf(k2.right) ) + 1;
+ 		k1.height = Math.max( heightOf(k1.right), k2.height ) + 1;
  		
  		//System.out.println("Single right rotation: " + k2.data);
  		
  		return k1;
  	}
  	
- 	protected AvlNode doubleWithLeftChild(
- 		AvlNode k3 )
+ 	protected BSTNode doubleWithLeftChild(
+ 			BSTNode k3 )
  	{
  		//System.out.println("Double left right rotation starting: " + k3.data);
  		
@@ -165,8 +163,8 @@ extends BinarySearchTree<E>
  		return rotateWithLeftChild(k3);
  	}
  	
- 	protected AvlNode doubleWithRightChild(
- 			AvlNode k3 )
+ 	protected BSTNode doubleWithRightChild(
+ 			BSTNode k3 )
  	{
  		//System.out.println("Double right left rotation starting: " + k3.data);
 
