@@ -87,6 +87,9 @@ extends BinarySearchTree<E>
                     // new data goes to the left of the current node
                     if (currentNode.left == null) {
                         currentNode.left = new BSTNode(data, 0);
+                        currentNode.left.setHeight(
+                				Math.max( heightOf( currentNode.left.left), heightOf( currentNode.left.right))
+                				+ 1);
                         selfBalance(overallRoot);
                         return;
                     }
@@ -95,6 +98,9 @@ extends BinarySearchTree<E>
                     // new data goes to the right of the current node
                     if (currentNode.right == null) {
                         currentNode.right = new BSTNode(data, 0);
+                        currentNode.right.setHeight(
+                				Math.max( heightOf( currentNode.right.left), heightOf( currentNode.right.right))
+                				+ 1);
                         selfBalance(overallRoot);
                         return;
                     }
@@ -102,8 +108,7 @@ extends BinarySearchTree<E>
                 }
             }
         }
-        // add balancing algo
-       //selfBalance(overallRoot);
+    	
     }
     
     // balancing algorithm taken from CS 146 slides
