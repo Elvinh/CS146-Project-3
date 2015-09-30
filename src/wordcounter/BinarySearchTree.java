@@ -71,34 +71,13 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
 		public BSTNode getLeft() {
 			return left;
 		}
-		public void setLeft(BSTNode left) {
-			this.left = left;
-		}
 		public BSTNode getRight() {
 			return right;
-		}
-		public void setRight(BSTNode right) {
-			this.right = right;
 		}
 		public E getData() {
 			return data;
 		}
-		public void setData(E data) {
-			this.data = data;
-		}
-		public int getCount() {
-			return count;
-		}
-		public void setCount(int count) {
-			this.count = count;
-		}
-		public int getHeight() {
-			return height;
-		}
-		public void setHeight(int height) {
-			this.height = height;
-		}
-        
+
     }
 
     /**
@@ -221,6 +200,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
 		else 
 			return contains(item, rootNode.right);
 	}
+	
 	public int getHeight() {
 		return heightOfTree(overallRoot);
 	}	
@@ -230,10 +210,8 @@ public class BinarySearchTree<E extends Comparable<? super E>> implements
 	    if(root == null)
 	    	return -1;
 	    else
-	    	return max(heightOfTree(root.getLeft()), heightOfTree(root.getRight())) + 1;
+	    	return Math.max(heightOfTree(root.getLeft()), heightOfTree(root.getRight())) + 1;
 	        
 	}
-	private int max(int i1, int i2) {
-		return (i1 > i2) ? i1 : i2;
-	}
+
 }

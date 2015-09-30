@@ -2,8 +2,8 @@
 package unitTests;
 
 import wordcounter.AvlTree;
-import wordcounter.TreePrinter;
 import wordcounter.BinarySearchTree;
+import wordcounter.TreePrinter;
 
 public class AVLDriver {
 

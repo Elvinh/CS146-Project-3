@@ -43,11 +43,11 @@ extends BinarySearchTree<E>
                     t = doubleWithRightChild( t );
         }
         else
-        	t.count++;  // Duplicate; do nothing
+        	t.count++;  // Duplicate; increase count for data
         
         t.height = (Math.max( heightOf( t.left ), heightOf( t.right) ) ) + 1;
+        
         return t;
-		
 	}
     
  // rotation algorithms implemented from Project 2 (Thien)

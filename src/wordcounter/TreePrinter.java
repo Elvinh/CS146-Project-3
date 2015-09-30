@@ -1,4 +1,5 @@
 package wordcounter;
+
 import wordcounter.BinarySearchTree.BSTNode;
 
 
