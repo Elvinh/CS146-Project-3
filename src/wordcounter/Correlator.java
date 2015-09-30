@@ -75,7 +75,7 @@ public class Correlator {
          * and type the arguments into the box. 
          */
         
-        //correlator("C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/hamlet.txt", 
+        //correlator("C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/", 
         		//"C:/Users/thien/Documents/GitHub/CS146-Project-3/src/rawProjectFiles/the-new-atlantis.txt");
         
     }

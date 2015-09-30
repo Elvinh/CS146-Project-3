@@ -9,51 +9,51 @@ extends BinarySearchTree<E>
         super();
 	}
 	
-	// new nested class AvlNode adds height instance variable w/ acc, mut
-//    protected class AvlNode extends BSTNode {
-//
-//		/**
-//         * The left child of this node.
-//         */
-//        public AvlNode left;
-//
-//        /**
-//         * The right child of this node.
-//         */
-//        public AvlNode right;
-//
-//        /**
-//         * The data element stored at this node.
-//         */
-//        public E data;
-//
-//        /**
-//         * The count for this data element.
-//         */
-//        public int count;
-//
-//        /**
-//         * 
-//         */
-//        public int height;
-//        
-//        /**
-//         * Create a new data node. Also takes care of incrementing the tree
-//         * size.
-//         *
-//         * @param data data element to be stored at this node.
-//         */
-//        
-//        public AvlNode(E data, int ht) {
-//            super(data);
-//			height = ht;
-//			// TODO Auto-generated constructor stub
-//		}
-//        
-//        // add accessor for height
-//        public int getHeight() { return height; }
-//        
-//        // add mutator for height
+	 //new nested class AvlNode adds height instance variable w/ acc, mut
+    protected class AvlNode extends BSTNode {
+
+		/**
+         * The left child of this node.
+         */
+        public AvlNode left;
+
+        /**
+         * The right child of this node.
+         */
+        public AvlNode right;
+
+        /**
+         * The data element stored at this node.
+         */
+        public E data;
+
+        /**
+         * The count for this data element.
+         */
+        public int count;
+
+        /**
+         * 
+         */
+        public int height;
+        
+        /**
+         * Create a new data node. Also takes care of incrementing the tree
+         * size.
+         *
+         * @param data data element to be stored at this node.
+         */
+        
+        public AvlNode(E data, int ht) {
+            super(data);
+			height = ht;
+			// TODO Auto-generated constructor stub
+		}
+        
+        // add accessor for height
+        public int getHeight() { return height; }
+        
+        // add mutator for height
 //    	public boolean setHeight( int height)
 //    	{
 //    		if (height < -1)
@@ -61,11 +61,11 @@ extends BinarySearchTree<E>
 //    		this.height = height;
 //    		return true;
 //    	}
-//    }
-//    
+    }
+    
 	public int heightOf(BSTNode a)
 	{
-		return a == null? -1 : a.height;
+		return a == null ? -1 : a.height;
 	}
     
     // need to override incCount to include the "check and adjust balance" algorithm
@@ -87,6 +87,7 @@ extends BinarySearchTree<E>
                     // new data goes to the left of the current node
                     if (currentNode.left == null) {
                         currentNode.left = new BSTNode(data, 0);
+                        selfBalance(overallRoot);
                         return;
                     }
                     currentNode = currentNode.left;
@@ -94,6 +95,7 @@ extends BinarySearchTree<E>
                     // new data goes to the right of the current node
                     if (currentNode.right == null) {
                         currentNode.right = new BSTNode(data, 0);
+                        selfBalance(overallRoot);
                         return;
                     }
                     currentNode = currentNode.right;
@@ -101,7 +103,7 @@ extends BinarySearchTree<E>
             }
         }
         // add balancing algo
-        selfBalance(overallRoot);
+       //selfBalance(overallRoot);
     }
     
     // balancing algorithm taken from CS 146 slides

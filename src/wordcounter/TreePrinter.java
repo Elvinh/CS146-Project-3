@@ -1,3 +1,7 @@
+package wordcounter;
+import wordcounter.BinarySearchTree.BSTNode;
+
+
 /**
  * BST and AVL tree printer for Integer nodes.
  *
@@ -9,10 +13,6 @@
  * @author Ron Mak
  *
  */
-package wordcounter;
-
-import wordcounter.BinarySearchTree.BSTNode;
-
 public class TreePrinter 
 {
     private static final int MAX_LEVELS = 6;
