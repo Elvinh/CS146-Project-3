@@ -8,60 +8,6 @@ extends BinarySearchTree<E>
 	{
         super();
 	}
-	
-	 //new nested class AvlNode adds height instance variable w/ acc, mut
-    protected class AvlNode extends BSTNode {
-
-		/**
-         * The left child of this node.
-         */
-        public AvlNode left;
-
-        /**
-         * The right child of this node.
-         */
-        public AvlNode right;
-
-        /**
-         * The data element stored at this node.
-         */
-        public E data;
-
-        /**
-         * The count for this data element.
-         */
-        public int count;
-
-        /**
-         * 
-         */
-        public int height;
-        
-        /**
-         * Create a new data node. Also takes care of incrementing the tree
-         * size.
-         *
-         * @param data data element to be stored at this node.
-         */
-        
-        public AvlNode(E data, int ht) {
-            super(data);
-			height = ht;
-			// TODO Auto-generated constructor stub
-		}
-        
-        // add accessor for height
-        public int getHeight() { return height; }
-        
-        // add mutator for height
-//    	public boolean setHeight( int height)
-//    	{
-//    		if (height < -1)
-//    			return false;
-//    		this.height = height;
-//    		return true;
-//    	}
-    }
     
 	public int heightOf(BSTNode a)
 	{
@@ -69,68 +15,40 @@ extends BinarySearchTree<E>
 	}
     
     // need to override incCount to include the "check and adjust balance" algorithm
-    public void incCount(E data) {
-        if (overallRoot == null) {
-            overallRoot = new BSTNode(data, 0);
-        } else {
-            // traverse the tree
-            BSTNode currentNode = overallRoot;
-            while (true) {
-                // compare the data to be inserted with the data at the current node
-                int cmp = data.compareTo(currentNode.data);
-
-                if (cmp == 0) {
-                    // current node is a match
-                    currentNode.count++;
-                    return;
-                } else if (cmp < 0) {
-                    // new data goes to the left of the current node
-                    if (currentNode.left == null) {
-                        currentNode.left = new BSTNode(data, 0);
-                        currentNode.left.setHeight(
-                				Math.max( heightOf( currentNode.left.left), heightOf( currentNode.left.right))
-                				+ 1);
-                        selfBalance(overallRoot);
-                        return;
-                    }
-                    currentNode = currentNode.left;
-                } else {
-                    // new data goes to the right of the current node
-                    if (currentNode.right == null) {
-                        currentNode.right = new BSTNode(data, 0);
-                        currentNode.right.setHeight(
-                				Math.max( heightOf( currentNode.right.left), heightOf( currentNode.right.right))
-                				+ 1);
-                        selfBalance(overallRoot);
-                        return;
-                    }
-                    currentNode = currentNode.right;
-                }
-            }
-        }
-    	
+    public void incCount(E data) { 
+    	overallRoot = _incCount(data, overallRoot);
     }
     
-    // balancing algorithm taken from CS 146 slides
-    protected BSTNode selfBalance( BSTNode node )
+    private BSTNode _incCount(E x, BSTNode t)
     {
-    	if (heightOf(node.left) - heightOf(node.right) > 1)
-    	{
-    		if (heightOf(node.left.left) >= heightOf(node.left.right))
-    			node = rotateWithLeftChild(node);
-    		else
-    			node = doubleWithLeftChild(node);
-    	}
-    	
-    	else if (heightOf(node.right) - heightOf(node.left) > 1)
-    	{
-    		if (heightOf(node.right.right) >= heightOf(node.right.left))
-    			node = rotateWithRightChild(node);
-    		else
-    			node = doubleWithRightChild(node);
-    	}
-		return node;
-    }
+        if( t == null )
+            t = new BSTNode( x );
+        
+        else if( x.compareTo( t.data ) < 0 )
+        {
+            t.left = (_incCount( x, t.left ));
+            if( heightOf( t.left ) - heightOf( t.right ) == 2 )
+                if( x.compareTo( t.getLeft().data ) < 0 )
+                    t = rotateWithLeftChild( t );
+                else
+                    t = doubleWithLeftChild( t );
+        }
+        else if( x.compareTo( t.data ) > 0 )
+        {
+            t.right = (_incCount( x, t.right ));
+            if( heightOf( t.right ) - heightOf( t.left ) == 2 )
+                if( x.compareTo( t.right.data ) > 0 )
+                    t = rotateWithRightChild( t );
+                else
+                    t = doubleWithRightChild( t );
+        }
+        else
+        	t.count++;  // Duplicate; do nothing
+        
+        t.height = (Math.max( heightOf( t.left ), heightOf( t.right) ) ) + 1;
+        return t;
+		
+	}
     
  // rotation algorithms implemented from Project 2 (Thien)
  	protected BSTNode rotateWithLeftChild(
