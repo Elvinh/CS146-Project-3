@@ -4,7 +4,7 @@
 
 # In order the texts are: 
 # Shakespeare: hamlet, othello, the-tempest
-# Sir Francis Bacon: essays, novum, the-new-atlantis
+# Sir Francis Bacon: essays, novum (scientific), the-new-atlantis
 # King James Bible
 # alice (Alice in Wonderland)
 
@@ -28,19 +28,27 @@
 
 # /------- Shakespeare ------------
 
-java Correlator.java -h .\hamlet.txt \.othello.txt
-java Correlator.java -h .\hamlet.txt \.the-tempest.txt
-java Correlator.java -h .\othello.txt \.the-tempest.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\othello.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\the-tempest.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\othello.txt .\txtFiles\the-tempest.txt
 
 # Note median errorSum, note which txt file contributed to smallest errorSums
 
 
 # /------- Sir Francis Bacon ------------
 
-java Correlator.java -h .\essays.txt \.novum.txt
-java Correlator.java -h .\essays.txt \.the-new-atlantis.txt
-java Correlator.java -h .\novum.txt \.the-new-atlantis.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\essays.txt .\txtFiles\novum.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\essays.txt .\txtFiles\the-new-atlantis.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\novum.txt .\txtFiles\the-new-atlantis.txt
 
-# Note median errorSum, note which txt file contributed to smallest errorSums
+# Note median errorSum, note which txt files (hamlet, novum) contributed to smallest errorSums
+""
+
+java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\novum.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\king-james-bible.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\alice.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\novum.txt .\txtFiles\king-james-bible.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\novum.txt .\txtFiles\alice.txt
+java -cp . wordcounter.Correlator -h .\txtFiles\king-james-bible.txt .\txtFiles\alice.txt
 
 # /------- The Rest here --------------

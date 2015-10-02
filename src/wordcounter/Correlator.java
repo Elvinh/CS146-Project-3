@@ -27,8 +27,8 @@ public class Correlator {
         		if ((double) c2.count/totalCount2 <= 0.01 && (double) c2.count/totalCount2 >= 0.0001)
         			if( c1.data.equals(c2.data) )
         			{
-        				System.out.println("Match with word: " + c1.data + " freq1 = " + (double) c1.count/totalCount1 
-        						+ ", freq2 = " + (double) c2.count/totalCount2);
+        				//System.out.println("Match with word: " + c1.data + " freq1 = " + (double) c1.count/totalCount1 
+        				//		+ ", freq2 = " + (double) c2.count/totalCount2);
         				errorSum += Math.pow( (double) c1.count/totalCount1 - (double) c2.count/totalCount2, 2.);
         			}
         System.out.println("Error Sum is: " + errorSum);
@@ -68,8 +68,8 @@ public class Correlator {
         
         correlator(wordCounts1, wordCounts2);
         
-        System.out.println("Total words in document 1: " + totalCount1);
-        System.out.println("Total words in document 2: " + totalCount2);
+        //System.out.println("Total words in document 1: " + totalCount1);
+        //System.out.println("Total words in document 2: " + totalCount2);
        
         /* Elton: Thien if you want to test within eclipse go to Run->Run configurations...>Program arguments
          * and type the arguments into the box. 

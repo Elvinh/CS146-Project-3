@@ -40,7 +40,7 @@ public class HashTable implements DataCounter<String> {
 		}
 	}
 	
-	static final int INIT_TABLE_SIZE = 97;
+	static final int INIT_TABLE_SIZE = 7919;	// with 97, times are similar BST. 7919 faster
 	static final double INIT_MAX_LAMBDA = 1.5;
 	
 	private LinkedList<Cell>[] table;
@@ -160,7 +160,7 @@ public class HashTable implements DataCounter<String> {
 		char [] val = key.toCharArray();
 		
 		for ( int i = 0; i < key.length(); i++ )
-			index = 37 * index + val[i];
+			index = 31 * index + val[i];
 		
 		return index;
 	}
