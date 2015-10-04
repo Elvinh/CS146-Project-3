@@ -1,7 +1,6 @@
 # /--------- PowerShell script to track performance ------------/
 
 # This powershell script analyzes the errorSums of various texts
-# usage: run in source directory
 
 # In order the texts are: 
 # Shakespeare: hamlet, othello, the-tempest
@@ -30,32 +29,32 @@ $startDTMs1=(Get-Date)
 
 # /------- Shakespeare ------------
 
-java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\othello.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\the-tempest.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\othello.txt .\txtFiles\the-tempest.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\hamlet.txt .\txtFiles\othello.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\hamlet.txt .\txtFiles\the-tempest.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\othello.txt .\txtFiles\the-tempest.txt
 
 # Note median errorSum, note which txt file contributed to smallest errorSums
 
 
 # /------- Sir Francis Bacon ------------
 
-java -cp . wordcounter.Correlator -h .\txtFiles\essays.txt .\txtFiles\novum.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\essays.txt .\txtFiles\the-new-atlantis.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\novum.txt .\txtFiles\the-new-atlantis.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\essays.txt .\txtFiles\novum.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\essays.txt .\txtFiles\the-new-atlantis.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\novum.txt .\txtFiles\the-new-atlantis.txt
 
 # Note median errorSum, note which txt files (hamlet, novum) contributed to smallest errorSums
 ""
 
-java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\novum.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\king-james-bible.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\hamlet.txt .\txtFiles\alice.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\novum.txt .\txtFiles\king-james-bible.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\novum.txt .\txtFiles\alice.txt
-java -cp . wordcounter.Correlator -h .\txtFiles\king-james-bible.txt .\txtFiles\alice.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\hamlet.txt .\txtFiles\novum.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\hamlet.txt .\txtFiles\king-james-bible.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\hamlet.txt .\txtFiles\alice.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\novum.txt .\txtFiles\king-james-bible.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\novum.txt .\txtFiles\alice.txt
+java -cp . wordcounter.Correlator -b .\txtFiles\king-james-bible.txt .\txtFiles\alice.txt
 
 # /------- The Rest here --------------
 
 # Get End Time
 $endDTMs1=(Get-Date)
 
-"Elapsed Time Correlator HashTable: $(($endDTMs1-$startDTMs1).totalseconds) seconds"
+"Elapsed Time Correlator BST: $(($endDTMs1-$startDTMs1).totalseconds) seconds"
