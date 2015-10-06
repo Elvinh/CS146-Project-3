@@ -1,5 +1,15 @@
 package wordcounter;
-
+/**
+ * @author Elton Vinh and Thien Van
+ * CS 146 Data Structures and Algorithms
+ * Fall 2015
+ * Department of Computer Science
+ * San Jose State University
+ * 
+ * Stub code for an implementation of a DataCounter that uses a AVL Tree as
+ * its backing data structure. Inherits from BinarySearchTree.
+ * 
+ */
 public class AvlTree<E extends Comparable< ? super E > >
 extends BinarySearchTree<E>
 {

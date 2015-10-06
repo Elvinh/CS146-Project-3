@@ -1,6 +1,12 @@
 package wordcounter;
 
 /**
+ * Elton Vinh and Thien Van
+ * CS 146 Data Structures and Algorithms
+ * Fall 2015
+ * Department of Computer Science
+ * San Jose State University
+ * 
  * Simple class to hold a piece of data and its count. The class has package
  * access so that the various implementations of DataCounter can access its
  * contents, but not client code.

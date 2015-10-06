@@ -8,9 +8,18 @@ import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 
 /**
+ * Elton Vinh and Thien Van
+ * CS 146 Data Structures and Algorithms
+ * Fall 2015
+ * Department of Computer Science
+ * San Jose State University 
+ *
  * FileWordReader reads words from a file one-by-one, converting to lowercase
  * and eliminating punctuation.  You can read a file in using:
  * 
+ * /**
+ * @author Ron Mak edited by Elton Vinh and Thien Van
+ *
  */
 class FileWordReader {
     StreamTokenizer tok;

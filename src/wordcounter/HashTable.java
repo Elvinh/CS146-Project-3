@@ -3,7 +3,11 @@ package wordcounter;
 import java.util.LinkedList;
 
 /**
- * TODO Replace this comment with your own.
+ * @author Ron Mak edited by Elton Vinh and Thien Van
+ * CS 146 Data Structures and Algorithms
+ * Fall 2015
+ * Department of Computer Science
+ * San Jose State University
  * 
  * Stub code for an implementation of a DataCounter that uses a hash table as
  * its backing data structure. We included this stub so that it's very clear

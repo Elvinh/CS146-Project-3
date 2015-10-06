@@ -1,6 +1,12 @@
 package wordcounter;
 
 /**
+ * Elton Vinh and Thien Van
+ * CS 146 Data Structures and Algorithms
+ * Fall 2015
+ * Department of Computer Science
+ * San Jose State University
+ * 
  * An executable that counts the words in a files and prints out the counts in
  * descending order. You will need to modify this file.
  */

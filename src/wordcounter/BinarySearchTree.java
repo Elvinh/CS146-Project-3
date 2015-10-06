@@ -1,6 +1,12 @@
 package wordcounter;
 
 /**
+ * Elton Vinh and Thien Van
+ * CS 146 Data Structures and Algorithms
+ * Fall 2015
+ * Department of Computer Science
+ * San Jose State University
+ * 
  * BSTCounter implements the DataCounter interface using a binary search tree to
  * store the data items and counts.
  *
