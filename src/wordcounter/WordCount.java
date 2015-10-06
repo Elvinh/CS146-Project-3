@@ -99,9 +99,6 @@ public class WordCount {
     }
 
     public static void main(String[] args) {
-        /* Elton: Thien if you want to test within eclipse go to Run->Run configurations...>Program arguments
-         * and type the arguments into the box. 
-         */
     	
         if (args.length != 3) {
             System.err.println(" Incorrect number of arguments");
@@ -118,7 +115,7 @@ public class WordCount {
         	wordCounts = countWords(dataStruct, args[2]);
         }
         else if (args[0].compareTo("-a")==0) {
-        	dataStruct = new AvlTree<String>(); //replace with AVLTree once completed
+        	dataStruct = new AvlTree<String>();
         	wordCounts = countWords(dataStruct, args[2]);
         }
         else if (args[0].compareTo("-h")==0) {
